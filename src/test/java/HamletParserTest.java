@@ -17,6 +17,13 @@ public class HamletParserTest {
     }
 
     @Test
+    public void testLoadFileAndReplace() {
+        String s = hamletParser.loadFileAndReplace("Hamlet","Dolio");
+        boolean actual = hamletParser.contains("Hamlet","s");
+        assertFalse(actual);
+    }
+
+    @Test
     public void testChangeHamletToDolio() {
         String input = "HamletHoratioHamletHoratio";
         String find = "Hamlet";

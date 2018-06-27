@@ -28,7 +28,6 @@ public class HamletParser {
                 String line = scanner.nextLine();
                 result.append(line).append("\n");
             }
-
             scanner.close();
         }catch(IOException e){
             e.printStackTrace();
@@ -37,12 +36,18 @@ public class HamletParser {
         return result.toString();
     }
 
+    public String loadFileAndReplace(String find, String replace){
+        Pattern pattern = createRegexPattern(find);
+        Matcher matcher = createMatcherFromInput(pattern, hamletData);
+        return findReplace(matcher, replace);
+    }
+
     public String getHamletData(){
         return hamletData;
     }
 
-    public Pattern createRegexPattern(String regex) {
-        return Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+    public Pattern createRegexPattern(String find) {
+        return Pattern.compile(find, Pattern.CASE_INSENSITIVE);
     }
 
     public Matcher createMatcherFromInput(Pattern pattern, String input) {
@@ -51,5 +56,11 @@ public class HamletParser {
 
     public String findReplace(Matcher matcher, String replace) {
         return matcher.replaceAll(replace);
+    }
+
+    public boolean contains(String find, String input){
+        Pattern pattern = createRegexPattern(find);
+        Matcher matcher = createMatcherFromInput(pattern, input);
+        return matcher.find();
     }
 }
